@@ -1,7 +1,6 @@
 package Supermercado.Program.Controller;
 
 import Supermercado.Program.DTO.ProdutoDTO;
-import Supermercado.Program.Entities.Produtos;
 import Supermercado.Program.Services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +20,13 @@ public class ProdutoController {
         return produtoService.listarTodos();
     }
 
-    @PostMapping("/p")
+    @PostMapping
     public void inserir(@RequestBody ProdutoDTO pDTO) {
         produtoService.inserir(pDTO);
     }
 
     @PutMapping("/{id}")
-    public ProdutoDTO alterar(@PathVariable Integer id, @RequestBody Produtos produtos) {
+    public ProdutoDTO alterar(@PathVariable Integer id, @RequestBody ProdutoDTO produtos) {
         return produtoService.atualizar(id, produtos)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }

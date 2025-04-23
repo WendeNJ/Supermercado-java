@@ -1,7 +1,9 @@
 package Supermercado.Program.Services;
 
 import Supermercado.Program.DTO.ProdutoDTO;
+import Supermercado.Program.Entities.CategoriaProdutos;
 import Supermercado.Program.Entities.Produtos;
+import Supermercado.Program.Repository.CategoriaRepository;
 import Supermercado.Program.Repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,6 @@ public class ProdutoService {
 
     @Autowired
     private ProdutosRepository produtosRepository;
-
 
     public List<ProdutoDTO> listarTodos() {
         List<Produtos> produtos = produtosRepository.findAll();
@@ -38,7 +39,7 @@ public class ProdutoService {
     }
 
 
-    public Optional<ProdutoDTO> atualizar(Integer id, Produtos produtoDTO) {
+    public Optional<ProdutoDTO> atualizar(Integer id, ProdutoDTO produtoDTO) {
         return produtosRepository.findById(id)
                 .map(produto -> {
                     produto.setNome(produtoDTO.getNome());
@@ -46,15 +47,17 @@ public class ProdutoService {
                     produto.setPreco(produtoDTO.getPreco());
                     produto.setQuantidadeEstoque(produtoDTO.getQuantidadeEstoque());
                     produto.setValidade(produtoDTO.getValidade());
-                    produto.setCategoria(produtoDTO.getCategoria());
+
+
+
+
                     produto.setFornecedor(produtoDTO.getFornecedor());
-                    produto.setDataCadastro(produtoDTO.getDataCadastro());  // Corrigido aqui
+                    produto.setDataCadastro(produtoDTO.getDataCadastro());
 
                     Produtos produtoAtualizado = produtosRepository.save(produto);
-                    return new ProdutoDTO(produtoAtualizado);  // Retorna ProdutoDTO atualizado
+                    return new ProdutoDTO(produtoAtualizado);
                 });
     }
-
 
 
     public void deletar(Integer id) {
