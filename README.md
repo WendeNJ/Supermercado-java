@@ -1,3 +1,6 @@
+# ⚠️🚧 EM CONSTRUÇÃO 🚧⚠️
+
+> Este projeto ainda está em desenvolvimento. Algumas funcionalidades podem não estar completas ou estáveis. Acompanhe as atualizações!
 # Supermercado Java
 
 Este projeto é um sistema para gerenciamento de estoque, vendas e produtos de um supermercado, desenvolvido utilizando **Java** com o Spring Framework. O objetivo é oferecer funcionalidades básicas como cadastro de produtos, fornecedores, categorias, vendas, entre outras.
