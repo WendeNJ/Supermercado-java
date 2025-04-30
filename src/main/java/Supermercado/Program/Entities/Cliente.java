@@ -1,12 +1,12 @@
 package Supermercado.Program.Entities;
 
+import Supermercado.Program.DTO.ClienteDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Cliente {
     @Id
@@ -24,5 +26,8 @@ public class Cliente {
     private String email;
     private String telefone;
 
+    public Cliente(ClienteDTO clienteDTO) {
+        BeanUtils.copyProperties(clienteDTO, this);
 
+    }
 }

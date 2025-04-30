@@ -38,6 +38,9 @@ public class Produtos implements Serializable {
     private List<EntradaEstoque> entradaEstoqueList;
     @OneToMany(mappedBy = "produto")
     private List<ItemVenda> itensVenda;
+    public void atualizarEstoque(int quantidade) {
+        this.quantidadeEstoque += quantidade;
+    }
 
     public Produtos(ProdutoDTO produtoDTO) {
         BeanUtils.copyProperties(produtoDTO, this);

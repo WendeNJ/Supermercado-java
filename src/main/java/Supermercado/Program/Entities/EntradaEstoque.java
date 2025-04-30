@@ -1,24 +1,37 @@
 package Supermercado.Program.Entities;
 
+import Supermercado.Program.DTO.EntradaEstoqueDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
 @Setter
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class EntradaEstoque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produtos produto;
+
     private int quantidade;
     private LocalDateTime dataEntrada;
-    private BigDecimal precoUnidade;
-    private BigDecimal total;
+
+    @PrePersist
+    public void atualizarEstoque() {
+        this.dataEntrada = LocalDateTime.now();
+    }
+    public EntradaEstoque (EntradaEstoqueDTO entradaEstoqueDTO){
+        BeanUtils.copyProperties(entradaEstoqueDTO, this);
+    }
 }

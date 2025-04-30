@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
         private String nome;
         private String email;
         private Integer senha; // A senha pode vir criptografada, dependendo da situação
-        private String tipoDoUsuario;
+
       public UsuarioDTO ( Usuario user){
           BeanUtils.copyProperties(user, this);
       }
@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 
       }
 
-    }
+
+
+        }
+
 
 

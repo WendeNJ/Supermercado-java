@@ -2,6 +2,7 @@ package Supermercado.Program.Services;
 
 import Supermercado.Program.DTO.UsuarioDTO;
 import Supermercado.Program.Entities.Usuario;
+import Supermercado.Program.Enums.TipoUsuario;
 import Supermercado.Program.Repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class UsuarioService {
         usuario.setNome(usuarioDTO.getNome());
         usuario.setEmail(usuarioDTO.getEmail());
         usuario.setSenha(usuarioDTO.getSenha());
-        usuario.setTipoDoUsuario(usuarioDTO.getTipoDoUsuario());
+
 
 
         Usuario usuarioSalvo = usuariosRepository.save(usuario);
@@ -67,8 +68,11 @@ public class UsuarioService {
             usuariosRepository.delete(usuarioOptional.get());
             return true;
         }
-        return false; //
+        return false;
+
+
     }
 }
+
 
 
