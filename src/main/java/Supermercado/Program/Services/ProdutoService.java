@@ -1,8 +1,14 @@
 package Supermercado.Program.Services;
 
 import Supermercado.Program.DTO.ProdutoDTO;
+<<<<<<< HEAD
 import Supermercado.Program.Entities.Produtos;
 import Supermercado.Program.Repository.FornecedorRepository;
+=======
+import Supermercado.Program.Entities.CategoriaProdutos;
+import Supermercado.Program.Entities.Produtos;
+import Supermercado.Program.Repository.CategoriaRepository;
+>>>>>>> 9018151b395052bcf4fd0381c3acf2d5ac2647b4
 import Supermercado.Program.Repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +22,11 @@ public class ProdutoService {
 
     @Autowired
     private ProdutosRepository produtosRepository;
+<<<<<<< HEAD
     @Autowired
     FornecedorRepository fornecedorRepository;
+=======
+>>>>>>> 9018151b395052bcf4fd0381c3acf2d5ac2647b4
 
     public List<ProdutoDTO> listarTodos() {
         List<Produtos> produtos = produtosRepository.findAll();
@@ -34,6 +43,7 @@ public class ProdutoService {
 
 
     public ProdutoDTO inserir(ProdutoDTO produtoDTO) {
+<<<<<<< HEAD
         Produtos produto = new Produtos(produtoDTO);
 
 
@@ -48,6 +58,15 @@ public class ProdutoService {
 
 
     public Optional<ProdutoDTO> atualizar(Integer id, Produtos produtoDTO) {
+=======
+        Produtos produto = new Produtos(produtoDTO);  // Converte ProdutoDTO para Produto
+        Produtos produtoSalvo = produtosRepository.save(produto);
+        return new ProdutoDTO(produtoSalvo);  // Retorna ProdutoDTO após a inserção
+    }
+
+
+    public Optional<ProdutoDTO> atualizar(Integer id, ProdutoDTO produtoDTO) {
+>>>>>>> 9018151b395052bcf4fd0381c3acf2d5ac2647b4
         return produtosRepository.findById(id)
                 .map(produto -> {
                     produto.setNome(produtoDTO.getNome());
@@ -55,6 +74,7 @@ public class ProdutoService {
                     produto.setPreco(produtoDTO.getPreco());
                     produto.setQuantidadeEstoque(produtoDTO.getQuantidadeEstoque());
                     produto.setValidade(produtoDTO.getValidade());
+<<<<<<< HEAD
                     produto.setCategoria(produtoDTO.getCategoria());
                     produto.setFornecedor(produtoDTO.getFornecedor());
                     produto.setDataCadastro(produtoDTO.getDataCadastro());  // Corrigido aqui
@@ -75,6 +95,22 @@ public class ProdutoService {
         if (!produtosRepository.existsById(id)) {
             throw new IllegalArgumentException("Produto com ID " + id + " não existe.");
         }
+=======
+
+
+
+
+                    produto.setFornecedor(produtoDTO.getFornecedor());
+                    produto.setDataCadastro(produtoDTO.getDataCadastro());
+
+                    Produtos produtoAtualizado = produtosRepository.save(produto);
+                    return new ProdutoDTO(produtoAtualizado);
+                });
+    }
+
+
+    public void deletar(Integer id) {
+>>>>>>> 9018151b395052bcf4fd0381c3acf2d5ac2647b4
         produtosRepository.deleteById(id);
     }
 }

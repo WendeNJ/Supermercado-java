@@ -1,5 +1,6 @@
 package Supermercado.Program.Controller;
 
+<<<<<<< HEAD
 import Supermercado.Program.DTO.ItemDTO;
 import Supermercado.Program.Services.ItemVendaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,9 @@ public class ItemVendaController {
         itemVendaService.excluir(id);
         return ResponseEntity.noContent().build();
     }
+=======
+public class ItemVendaController {
+
+
+>>>>>>> 9018151b395052bcf4fd0381c3acf2d5ac2647b4
 }
