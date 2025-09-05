@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,9 +16,8 @@ public class ProdutoDTO {
     private Float preco;
     private int quantidadeEstoque;
     private LocalDate validade;
-    private String categoria;  // Representação da categoria como String
-    private String fornecedor;
-    private LocalDateTime dataCadastro;
+    private String categoria;
+    private Integer fornecedorId;
 
 
     public ProdutoDTO(Produtos prod) {
@@ -29,6 +27,11 @@ public class ProdutoDTO {
         if (prod.getCategoria() != null) {
             this.categoria = prod.getCategoria().getNome();
         }
+        if (prod.getFornecedor() != null) {
+
+            this.fornecedorId = prod.getFornecedor().getId();
+        }
+
     }
 
     public ProdutoDTO() {

@@ -35,6 +35,9 @@ public class EstoqueService {
 
 
         produto.atualizarEstoque(dto.getQuantidade()); // Método na entidade Produto
+        if (produto.getQuantidadeEstoque() < 0) {
+            throw new IllegalArgumentException("Quantidade em estoque não pode ser negativa.");
+        }
 
 
         entradaEstoqueRepository.save(entrada);

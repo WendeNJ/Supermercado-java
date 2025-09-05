@@ -4,40 +4,43 @@ import Supermercado.Program.DTO.ProdutoDTO;
 import Supermercado.Program.Entities.Produtos;
 import Supermercado.Program.Services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping (value = "/p")
 
 public class ProdutoController {
-    @Configuration
-    public class CorsConfig implements WebMvcConfigurer {
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**")
-                    .allowedOrigins("*")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE");
-        }
-    }
     @Autowired
     private ProdutoService produtoService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutoDTO> buscarPorId(@PathVariable("id") Integer id) {
+        Optional<ProdutoDTO> dto = produtoService.buscarProduto(id);
+
+        return dto.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @GetMapping
     public List<ProdutoDTO> listartodods() {
         return produtoService.listarTodos();
     }
 
+
     @PostMapping("/p")
-    public void inserir(@RequestBody ProdutoDTO pDTO) {
-        produtoService.inserir(pDTO);
+    public ResponseEntity<ProdutoDTO> inserir(@RequestBody ProdutoDTO pDTO) {
+        ProdutoDTO salvo = produtoService.inserir(pDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+
+
     }
+
 
     @PutMapping("/{id}")
     public ProdutoDTO alterar(@PathVariable Integer id, @RequestBody Produtos produtos) {
@@ -50,4 +53,5 @@ public class ProdutoController {
         produtoService.deletar(id);
         return  ResponseEntity.ok().build();
     }
+
 }

@@ -1,15 +1,14 @@
 package Supermercado.Program.Entities;
 
 import Supermercado.Program.DTO.FornecedorDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -26,6 +25,9 @@ public class Fornecedor {
     private String telefone;
     private String endereco;
     private LocalDate dataCadastro;
+
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    private List<Produtos> produtos;
 
     public Fornecedor (FornecedorDTO fornecedorDTO){
         BeanUtils.copyProperties(fornecedorDTO, this);

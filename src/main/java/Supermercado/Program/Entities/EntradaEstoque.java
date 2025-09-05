@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -25,11 +25,13 @@ public class EntradaEstoque {
     private Produtos produto;
 
     private int quantidade;
-    private LocalDateTime dataEntrada;
+    private LocalDate dataEntrada;
+
+
 
     @PrePersist
     public void atualizarEstoque() {
-        this.dataEntrada = LocalDateTime.now();
+        this.dataEntrada = LocalDate.now();
     }
     public EntradaEstoque (EntradaEstoqueDTO entradaEstoqueDTO){
         BeanUtils.copyProperties(entradaEstoqueDTO, this);

@@ -1,6 +1,7 @@
 package Supermercado.Program.Entities;
 
 import Supermercado.Program.DTO.ProdutoDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.EqualsAndHashCode;
@@ -25,17 +26,27 @@ public class Produtos implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Column(unique=true)
     private String codigoBarras;
     private Float preco;
     private int quantidadeEstoque;
     private LocalDate validade;
+
+
     @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "Categoria_id")
     private CategoriaProdutos categoria;
-    private String fornecedor;
+
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
+
     private LocalDateTime dataCadastro;
+    @JsonIgnore
     @OneToMany(mappedBy = "produto")
     private List<EntradaEstoque> entradaEstoqueList;
+    @JsonIgnore
     @OneToMany(mappedBy = "produto")
     private List<ItemVenda> itensVenda;
     public void atualizarEstoque(int quantidade) {

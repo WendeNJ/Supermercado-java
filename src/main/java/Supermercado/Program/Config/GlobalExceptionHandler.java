@@ -1,13 +1,20 @@
 package Supermercado.Program.Config;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
-    public ResponseEntity<Object> handlerAnyException(Exception e, ){
+    @ExceptionHandler (Exception.class)
+    public ResponseEntity<String> handlerException ( Exception ex){
+        ex.printStackTrace();
 
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro inesperado: " + ex.getMessage());
     }
+
+
 }
